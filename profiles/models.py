@@ -3,10 +3,7 @@ from django.db import models
 from accounts.models import User
 from tags.models import Tag
 # Create your models here.
-GENDER = (
-    ('MALE','male'),
-    ('FEMALE','Female'),
-)
+
 
 class Developer(models.Model):
     developer = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)

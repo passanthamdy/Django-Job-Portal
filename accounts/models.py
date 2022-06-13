@@ -1,15 +1,31 @@
-
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from tags.models import Tag
+from datetime import datetime
+from django.utils.timezone import now
 # # Create your models here.
+GENDER = (
+    ('MALE', 'male'),
+    ('FEMALE', 'Female'),
+)
+USER_TYPE = (
+    ('DEVELOPER', 'Developer'),
+    ('COMPANY', 'Company'),
+)
+
 
 class User(AbstractUser):
-  #Boolean fields to select the type of account.
-  is_developer = models.BooleanField(default=False)
-  is_recruiter = models.BooleanField(default=False)
-  allow_notification=models.BooleanField(default=False)
+    user_type = models.CharField(choices=USER_TYPE,max_length=50,default="DEVELOPER")
+    allow_notification = models.BooleanField(default=False)
+    gender = models.CharField(choices=GENDER, max_length=50,default='FEMALE')
+    dob = models.DateField(default=now)
+    # Developer fields
+    cv = models.FileField(upload_to='user_cvs/', null=True, blank=True)
+    tags = models.ManyToManyField(Tag, null=True, blank=True)
+    # Company Fields
+    company_name = models.CharField(max_length=50, null=True, blank=True)
+    address = models.CharField(max_length=100, null=True, blank=True)
+    history = models.ManyToManyField("self", blank=True, null=True)
 
-  def __str__(self):
-      return self.username
-
+    def __str__(self):
+        return self.username + ' ' + self.user_type
