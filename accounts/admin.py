@@ -1,11 +1,43 @@
 from django.contrib import admin
 from .models import User
 # Register your models here.
-# class UserAdmin(admin.ModelAdmin):
-#     list_display = ['first_name', 'last_name', 'id']
-#     class Meta:
-#         model = User
 
-# admin.site.register(User, UserAdmin)
+@admin.register(User)
 
-admin.site.register(User)
+class UserAdmin(admin.ModelAdmin):
+   
+    
+    list_display = ['user_type','gender','dob','company_name','cv','address','get_tags','get_history']
+
+    search_fields = ('user_type','gender',)
+    fieldsets=(
+        ('Personal Info',{'fields':['username','password','user_type','gender','address','dob','company_name']}),
+        ('Upload Section',{'fields':['cv']}),
+        ('Extra Info',{'fields':['tags','history']}),
+    )
+
+    def get_tags(self, obj):
+        if obj.tags.all():
+            return list(obj.tags.all().values_list('name', flat=True))
+        else:
+            return 'No Tags Yet...'
+    get_tags.short_description='tags names'
+    
+    def get_history(self, obj):
+        if obj.history.all():
+            return list(obj.history.all().values_list('name', flat=True))
+        else:
+            return 'No History Yet...'
+    get_history.short_description='History'
+     
+    
+        
+
+    class Meta:
+        model = User
+
+
+
+
+
+
