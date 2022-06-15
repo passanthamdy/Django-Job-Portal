@@ -45,14 +45,9 @@ INSTALLED_APPS = [
     #third patries
     'rest_framework',
     'rest_framework.authtoken',
-<<<<<<< HEAD
     'corsheaders',
-=======
-    "corsheaders",
->>>>>>> db83f7674d912ed5f2f2e5991e94c2f10aeba005
 ]
 
-CORS_ALLOW_ALL_ORIGINS=True
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
@@ -116,14 +111,17 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+         'OPTIONS': {
+            'timeout': 5,
+        }
     }
 }
 
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'jobapplication',
-#         'USER': 'postgres',
+#         'NAME': 'Jobs',
+#         'USER': 'passant',
 #         'PASSWORD': '',
 #         'HOST': '',
 #         'PORT': '5432'
@@ -171,3 +169,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = 'bfdd025477b7d0'
+EMAIL_HOST_PASSWORD = 'c750f2328eb2d2'
+EMAIL_PORT = '2525'
+
+

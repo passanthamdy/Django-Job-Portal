@@ -29,10 +29,10 @@ class JobSerializer(serializers.ModelSerializer):
         optional_fields=['applied_developers','developer','status']
 
 class JobCreateSerializer(serializers.ModelSerializer):
-    user=User.objects.get(id=5)
-    job_owner= serializers.HiddenField(
-        default=user,
-    )
+    # user=User.objects.get(id=5)
+    # job_owner= serializers.HiddenField(
+    #     default=user,
+    # )
     class Meta:
         model=Job
         fields=['id','name','Tags','applied_developers',

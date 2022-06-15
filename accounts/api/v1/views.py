@@ -5,7 +5,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from .serializers import DeveloperSerializer, CompanySerializer
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
-
+from rest_framework.permissions import AllowAny
 
 @api_view(['POST'])
 @permission_classes([])
@@ -25,7 +25,7 @@ def developer_signup(request):
 
 
 @api_view(['POST'])
-@permission_classes([])
+@permission_classes([AllowAny])
 def company_signup(request):
     response = {'data': None, 'status': status.HTTP_400_BAD_REQUEST}
 

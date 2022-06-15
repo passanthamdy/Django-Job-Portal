@@ -27,15 +27,15 @@ class JobAdmin(admin.ModelAdmin):
     get_developers.short_description='developers names'
 
 
-    def has_delete_permission(self,request,obj=None):
-        if request.user.is_superuser:
-            return False
-        return True
+    # def has_delete_permission(self,request,obj=None):
+    #     if request.user.is_superuser:
+    #         return False
+    #     return True
         
-    def has_change_permission(self,request,obj=None):
-        if request.user.is_superuser:
-            return False
-        return True
+    # def has_change_permission(self,request,obj=None):
+    #     if request.user.is_superuser:
+    #         return False
+    #     return True
     
    
         
