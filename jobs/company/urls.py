@@ -7,6 +7,7 @@ urlpatterns = [
     #Company urls
     path('company-jobs/', views.ListCompanyJobs.as_view()),
     path('company-jobs/<int:pk>/', views.RetrieveUpdateDeleteCompanyJob.as_view()),
+    path('company-jobs/<int:pk>/accept',views.AcceptDeveloper)
 
 
 

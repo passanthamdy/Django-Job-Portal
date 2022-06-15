@@ -1,4 +1,5 @@
 from functools import partial
+from inspect import stack
 from django.shortcuts import render
 from requests import request
 from rest_framework import generics
@@ -9,6 +10,7 @@ from accounts.models import User
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
+from rest_framework.decorators import api_view
 
 # class ListCompanyJobs(generics.ListAPIView):
 #     #self.request.user
@@ -73,3 +75,17 @@ class RetrieveUpdateDeleteCompanyJob(APIView):
             return Response({"details": "your job is deleted"},status=st)
         
         return Response({"details": "your job cannot be deleted "},status=st)
+
+@api_view(['POST'])
+def AcceptDeveloper(request,pk):
+    st=status.HTTP_400_BAD_REQUEST
+    job=Job.objects.get(pk=pk)
+    id=request.data['id']
+    user=User.objects.get(id=id)
+    if job.status=='OPEN' and job.developer is Null:
+        job.applied_developers.add(user)
+        job.staus='IN_PROGRESS'
+        return Response({"details":"Developer has been accepted"},status=status.HTTP_201_CREATED)
+    return Response({"details":"Developer can't be accepted"},status=status.HTTP_201_CREATED)
+
+

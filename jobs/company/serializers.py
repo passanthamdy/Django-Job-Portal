@@ -42,6 +42,7 @@ class JobCreateSerializer(serializers.ModelSerializer):
     # def create(self, validated_data):
     #      jobs = Job.objects.create( **validated_data)
     #      tags = validated_data.pop('tags_id')
+
     #      for tg in tags:
     #         jobs.tags.add(tg)
     #      return jobs

@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'notifications',
     #third patries
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'corsheaders',
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -62,9 +63,14 @@ ACCOUNT_EMAIL_REQUIRED=True
 # ACCOUNT_AUTHENTICATION_METHOD = 'username'
 # ACCOUNT_EMAIL_VERIFICATION = 'none'
 
+CORS_ORIGIN_WHITELIST =(
+   'http://localhost:8080',
+  'http://192.168.0.107:8080'
+)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
