@@ -45,13 +45,22 @@ INSTALLED_APPS = [
     #third patries
     'rest_framework',
     'rest_framework.authtoken',
+<<<<<<< HEAD
     'corsheaders',
+=======
+    "corsheaders",
+>>>>>>> db83f7674d912ed5f2f2e5991e94c2f10aeba005
 ]
+
+CORS_ALLOW_ALL_ORIGINS=True
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
+    'DEFAULT_PERMISSION_CLASSES': (
+            'rest_framework.permissions.IsAuthenticated',
+        ),
 }
 
 # SITE_ID = 1
@@ -59,7 +68,6 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'accounts.USER'
 
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_REQUIRED=True
 # ACCOUNT_AUTHENTICATION_METHOD = 'username'
 # ACCOUNT_EMAIL_VERIFICATION = 'none'
 
@@ -68,6 +76,8 @@ CORS_ORIGIN_WHITELIST =(
   'http://192.168.0.107:8080'
 )
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
