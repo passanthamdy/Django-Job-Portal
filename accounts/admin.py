@@ -7,13 +7,13 @@ from .models import User
 class UserAdmin(admin.ModelAdmin):
    
     
-    list_display = ['user_type','gender','dob','company_name','cv','address','get_tags','get_history']
+    list_display = ['user_type','gender','dob','company_name','cv','address','get_tags','get_history','is_active']
 
     search_fields = ('user_type','gender',)
     fieldsets=(
-        ('Personal Info',{'fields':['username','password','user_type','gender','address','dob','company_name']}),
+        ('Personal Info',{'fields':['username','first_name','last_name','password','user_type','gender','address','dob','company_name','is_active']}),
         ('Upload Section',{'fields':['cv']}),
-        ('Extra Info',{'fields':['tags','history']}),
+        ('Extra Info',{'fields':['tags','history',]}),
     )
 
     def get_tags(self, obj):
