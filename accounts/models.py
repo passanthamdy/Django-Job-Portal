@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from tags.models import Tag
 from datetime import datetime
 from django.utils.timezone import now
+
 # # Create your models here.
 GENDER = (
     ('MALE', 'male'),
@@ -15,9 +16,9 @@ USER_TYPE = (
 
 
 class User(AbstractUser):
-    user_type = models.CharField(choices=USER_TYPE,max_length=50,default="DEVELOPER")
+    user_type = models.CharField(choices=USER_TYPE, max_length=50, default="DEVELOPER")
     allow_notification = models.BooleanField(default=False)
-    gender = models.CharField(choices=GENDER, max_length=50,default='FEMALE')
+    gender = models.CharField(choices=GENDER, max_length=50, default='FEMALE')
     dob = models.DateField(default=now)
     # Developer fields
     cv = models.FileField(upload_to='user_cvs/', null=True, blank=True)

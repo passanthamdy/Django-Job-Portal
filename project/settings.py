@@ -44,13 +44,19 @@ INSTALLED_APPS = [
     'notifications',
     #third patries
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    "corsheaders",
 ]
+
+CORS_ALLOW_ALL_ORIGINS=True
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
+    'DEFAULT_PERMISSION_CLASSES': (
+            'rest_framework.permissions.IsAuthenticated',
+        ),
 }
 
 # SITE_ID = 1
@@ -58,11 +64,12 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'accounts.USER'
 
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_REQUIRED=True
 # ACCOUNT_AUTHENTICATION_METHOD = 'username'
 # ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
