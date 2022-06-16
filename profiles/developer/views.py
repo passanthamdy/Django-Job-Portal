@@ -7,7 +7,8 @@ from rest_framework import generics
 from rest_framework.generics import RetrieveAPIView, ListAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
-
+from profiles.permissions import UserWritePermission
+from rest_framework.generics import UpdateAPIView
 
 # from .permissions import MyPermission
 
@@ -25,23 +26,10 @@ def profile_view(request, developer_id):
     return Response(**response)
 
 
-@api_view(['PUT', 'PATCH'])
-def profile_update(request, developer_id):
-    response = {'data': None, 'status': status.HTTP_400_BAD_REQUEST}
-    developer_instance = User.objects.filter(pk=developer_id).first()
-    serializer = DeveloperViewSerializer(instance=developer_instance, data=request.data)
-    if request.method == 'PUT':
-        serializer = DeveloperViewSerializer(instance=developer_instance, data=request.data)
-    else:
-        serializer = DeveloperViewSerializer(instance=developer_instance, data=request.data, partial=True)
 
-    if serializer.is_valid():
-        serializer.save()
-        response['data'] = serializer.data
-        response['status'] = status.HTTP_201_CREATED
-    else:
-        response['data'] = serializer.errors
-
-    return Response(**response)
+class UpdataProfile(UpdateAPIView):
+    queryset=User.objects.all()
+    serializer_class=DeveloperViewSerializer
+    permission_classes=[UserWritePermission]
 
 
