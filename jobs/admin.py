@@ -6,19 +6,11 @@ from .models import Job
 # admin.site.register(Job)
 @admin.register(Job)
 class JobAdmin(admin.ModelAdmin):
-<<<<<<< HEAD
     
     list_display=['id','name','job_owner','description','creation_time','modification_time','get_tags','get_developers']
     fieldsets=(
         ('Job Info',{'fields':['name','job_owner','developer','status']}),
         ('Extra Info',{'fields':['description','Tags','applied_developers']}),
-=======
-    list_display = ['name', 'job_owner', 'description', 'creation_time', 'modification_time', 'get_tags',
-                    'get_developers']
-    fieldsets = (
-        ('Job Info', {'fields': ['name', 'job_owner', 'developer', 'status']}),
-        ('Extra Info', {'fields': ['description', 'Tags', 'applied_developers']}),
->>>>>>> 802b17c882084a2179749a7dc72b301f703115d3
     )
 
     def get_tags(self, obj):

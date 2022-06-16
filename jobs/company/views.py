@@ -76,22 +76,6 @@ class RetrieveUpdateDeleteCompanyJob(APIView):
             job.delete()
             return Response({"details": "your job is deleted"}, status=st)
 
-<<<<<<< HEAD
-@api_view(['POST'])
-def AcceptDeveloper(request,pk):
-    st=status.HTTP_400_BAD_REQUEST
-    job=Job.objects.get(pk=pk)
-    id=request.data['id']
-    user=User.objects.get(id=id)
-    if job.status=='OPEN' and job.developer is Null:
-        job.developer.add(user)
-        job.staus='IN_PROGRESS'
-        return Response({"details":"Developer has been accepted"},status=status.HTTP_201_CREATED)
-    return Response({"details":"Developer can't be accepted"},status=status.HTTP_201_CREATED)
-=======
-        return Response({"details": "your job cannot be deleted "}, status=st)
->>>>>>> 802b17c882084a2179749a7dc72b301f703115d3
-
 
 @api_view(['POST'])
 def AcceptDeveloper(request, pk):
@@ -100,7 +84,7 @@ def AcceptDeveloper(request, pk):
     id = request.data['id']
     user = User.objects.get(id=id)
     if job.status == 'OPEN' and job.developer is None:
-        job.applied_developers.add(user)
-        job.staus = 'IN_PROGRESS'
+        job.developer=user
+        job.save()
         return Response({"details": "Developer has been accepted"}, status=status.HTTP_201_CREATED)
     return Response({"details": "Developer can't be accepted"}, status=status.HTTP_201_CREATED)
