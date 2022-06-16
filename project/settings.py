@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'django_extensions',
 ]
 
-CORS_ALLOW_ALL_ORIGINS=True
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
@@ -69,6 +68,10 @@ ACCOUNT_EMAIL_REQUIRED = True
 # ACCOUNT_AUTHENTICATION_METHOD = 'username'
 # ACCOUNT_EMAIL_VERIFICATION = 'none'
 
+CORS_ORIGIN_WHITELIST =(
+   'http://localhost:8080',
+  'http://192.168.0.107:8080'
+)
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -110,14 +113,17 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+         'OPTIONS': {
+            'timeout': 5,
+        }
     }
 }
 
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'jobapplication',
-#         'USER': 'postgres',
+#         'NAME': 'Jobs',
+#         'USER': 'passant',
 #         'PASSWORD': '',
 #         'HOST': '',
 #         'PORT': '5432'
@@ -165,6 +171,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '8279feff41ac17'
+EMAIL_HOST_PASSWORD = '93f959c1272a25'
+EMAIL_PORT = '2525'
+
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
 ]

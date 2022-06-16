@@ -22,11 +22,11 @@ class UserAdmin(admin.ModelAdmin):
 class UserAdmin(admin.ModelAdmin):
    
     
-    list_display = ['user_type','gender','dob','company_name','cv','address','get_tags','get_history','is_active']
+    list_display = ['id','username','email','user_type','gender','dob','company_name','cv','address','get_tags','get_history','is_active']
 
     search_fields = ('user_type','gender',)
     fieldsets=(
-        ('Personal Info',{'fields':['username','first_name','last_name','password','user_type','gender','address','dob','company_name','is_active']}),
+        ('Personal Info',{'fields':['username','email','first_name','last_name','password','user_type','gender','address','dob','company_name','is_active']}),
         ('Upload Section',{'fields':['cv']}),
         ('Extra Info',{'fields':['tags','history',]}),
 >>>>>>> 39d48cef46770203003645ed653cabc55341ed14
