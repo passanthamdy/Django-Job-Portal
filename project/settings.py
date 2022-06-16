@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     #third patries
     'rest_framework',
     'rest_framework.authtoken',
-    "corsheaders",
+    'corsheaders',
+    'django_extensions',
 ]
 
 CORS_ALLOW_ALL_ORIGINS=True
