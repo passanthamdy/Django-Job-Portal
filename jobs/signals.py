@@ -86,31 +86,7 @@ def send_mails_to_applied_developers(sender, instance, action, **kwargs):
          f"New developer applied for your {instance.name} job you can accept the qualified one by visiting the job",
          "job_portal@gmail.com",
          [job_owner_email])
-        
-
-        print(accepted_user.email)
-        if accepted_user.id != None:
-            users = User.objects.exclude(id=accepted_user.id)
-
-            for user in users:
-                if user.allow_notification ==True:
-                    users_emails.append(user.email)
-            
-            users_emails = list(set(users_emails))
-            if accepted_user.allow_notification == True:
-                send_mail("Job Portal",
-                      f"GG man you are accepted",
-                      "job_portal@gmail.com",
-                      [accepted_user.email])
-                Notification.objects.create(
-                    username=accepted_user, message="GG man you are accepted"
-                        )
-            send_mail("Job Portal",
-                      f"Sorry guys you are not accepted, try again later",
-                      "job_portal@gmail.com",
-                      users_emails)                         
-                            
-                            
+                              
 
                 
            
