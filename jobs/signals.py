@@ -30,29 +30,20 @@ def send_mails_to_users_and_company(instance,*args,**kwargs):
         if instance.status=="FINISHD":
             job_owner=instance.job_owner
             developer=instance.developer
-            if(job_owner.allow_notification == True):
-                            job_owner_notification=Notification.objects.create(username=instance.job_owner,message=f"{instance.job_owner.username} Your Job Has Been Finished",created_at="2020-06-17") 
-                            send_mail("Job Progress",
-                f"Hello Job Owner The Job Status Is Changed To Finish ",
-                "job_portal@gmail.com",
-                [job_owner.email])
-            else:
-                         send_mail("Job Progress",
-                f"Hello Job Owner You do not allow the Notifications On ",
+            if job_owner.allow_notification == True:              
+                job_owner_notification=Notification.objects.create(username=instance.job_owner,message=f"{instance.job_owner.username} Your Job Has Been Finished",created_at="2020-06-17") 
+                send_mail("Job Progress",
+                f"Hello {instance.job_owner.username} The Job Status Is Changed To Finish ",
                 "job_portal@gmail.com",
                 [job_owner.email])
                          
-            if(developer.allow_notification == True):
-                            developer_notification=Notification.objects.create(username=instance.developer,message=f"{instance.developer.username} Your Job Has Been Finished",created_at="2020-06-17") 
-                            send_mail("Job Progress",
-                f"Hello Developer The Job Status Is Changed To Finish ",
+            if developer.allow_notification == True:
+                developer_notification=Notification.objects.create(username=instance.developer,message=f"{instance.developer.username} Your Job Has Been Finished",created_at="2020-06-17") 
+                send_mail("Job Progress",
+                f"Hello {instance.developer.username} The Job Status Is Changed To Finish ",
                 "job_portal@gmail.com",
                 [developer.email])
-            else:
-                         send_mail("Job Progress",
-                f"Hello Developer You do not allow the Notifications On ",
-                "job_portal@gmail.com",
-                [developer.email])            
+                     
                          
                             
                             
