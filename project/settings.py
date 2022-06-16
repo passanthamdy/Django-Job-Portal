@@ -118,8 +118,8 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'Jobs',
-#         'USER': 'passant',
+#         'NAME': 'jobapp',
+#         'USER': 'postgres',
 #         'PASSWORD': '',
 #         'HOST': '',
 #         'PORT': '5432'
@@ -168,9 +168,14 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# EMAIL_HOST = 'smtp.mailtrap.io'
+# EMAIL_HOST_USER = '8279feff41ac17'
+# EMAIL_HOST_PASSWORD = '93f959c1272a25'
+# EMAIL_PORT = '2525'
+
 EMAIL_HOST = 'smtp.mailtrap.io'
-EMAIL_HOST_USER = '8279feff41ac17'
-EMAIL_HOST_PASSWORD = '93f959c1272a25'
+EMAIL_HOST_USER = 'f417d3925c552e'
+EMAIL_HOST_PASSWORD = '711eef592c2bd2'
 EMAIL_PORT = '2525'
 
 
