@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
+from profiles.developer.serializers import  UsersHistorySerializer
 from .serializers import CompanySerializer, NotificationSerializer
 
 
@@ -63,3 +63,11 @@ def allow_notification(request, company_id):
         response['status'] = status.HTTP_204_NO_CONTENT
     finally:
         return Response(**response)
+
+
+@api_view(['GET'])
+def get_history(request, id):
+    user=User.objects.get(id=id)
+    users=user.history.all()
+    serializer=UsersHistorySerializer(users, many=True)
+    return Response(data=serializer.data)

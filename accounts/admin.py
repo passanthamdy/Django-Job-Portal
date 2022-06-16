@@ -12,10 +12,10 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ('username', 'user_type', 'gender',)
     fieldsets = (
         ('Personal Info', {
-            'fields': ['username', 'first_name', 'last_name', 'password', 'user_type', 'gender', 'address', 'dob',
+            'fields': ['username', 'email', 'first_name', 'last_name', 'password', 'user_type', 'gender', 'address', 'dob',
                        'company_name', 'is_active']}),
         ('Upload Section', {'fields': ['cv']}),
-        ('Extra Info', {'fields': ['tags', 'allow_notification', ]}),)
+        ('Extra Info', {'fields': ['tags', 'allow_notification','history' ]}),)
 
     def get_tags(self, obj):
         if obj.tags.all():
@@ -25,13 +25,13 @@ class UserAdmin(admin.ModelAdmin):
 
     get_tags.short_description = 'tags names'
 
-    # def get_history(self, obj):
-    #     if obj.history.all():
-    #         return list(obj.history.all().values_list('name', flat=True))
-    #     else:
-    #         return 'No History Yet...'
+    def get_history(self, obj):
+        if obj.history.all():
+            return list(obj.history.all().values_list('name', flat=True))
+        else:
+            return 'No History Yet...'
 
-    # get_history.short_description = 'History'
+    get_history.short_description = 'History'
 
     class Meta:
         model = User
