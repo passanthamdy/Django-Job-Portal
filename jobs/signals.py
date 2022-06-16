@@ -21,6 +21,16 @@ def send_mails_to_matched_users(sender, instance, action, **kwargs):
          f"Hello job seekers , this job matches your tags, you can apply",
          "job_portal@gmail.com",
          ['passant@gmail.com'])
+
+@receiver(m2m_changed, sender=Job.applied_developers.through)
+def send_mails_to_matched_users(sender, instance, action, **kwargs):
+    if action == 'post_add':
+        #send email logic
+        job_owner_email=instance.job_owner.email
+        send_mail("Job Portal",
+         f"New developer applied for your {instance.name} job you can accept the qualified one by visiting the job",
+         "job_portal@gmail.com",
+         [job_owner_email])
         
 
        

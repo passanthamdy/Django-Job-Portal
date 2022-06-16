@@ -5,7 +5,7 @@ from .models import Job
 @admin.register(Job)
 class JobAdmin(admin.ModelAdmin):
     
-    list_display=['name','job_owner','description','creation_time','modification_time','get_tags','get_developers']
+    list_display=['id','name','job_owner','description','creation_time','modification_time','get_tags','get_developers']
     fieldsets=(
         ('Job Info',{'fields':['name','job_owner','developer','status']}),
         ('Extra Info',{'fields':['description','Tags','applied_developers']}),
