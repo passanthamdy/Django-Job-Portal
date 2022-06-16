@@ -7,7 +7,7 @@ from .models import User
 class UserAdmin(admin.ModelAdmin):
    
     
-    list_display = ['username','email','user_type','gender','dob','company_name','cv','address','get_tags','get_history','is_active']
+    list_display = ['id','username','email','user_type','gender','dob','company_name','cv','address','get_tags','get_history','is_active']
 
     search_fields = ('user_type','gender',)
     fieldsets=(

@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-class DeveloperSerializer(serializers.ModelSerializer):
+class SignupDeveloperSerializer(serializers.ModelSerializer):
     password_confirm = serializers.CharField(write_only=True)
 
     class Meta:
@@ -35,7 +35,7 @@ class DeveloperSerializer(serializers.ModelSerializer):
             return developer
 
 
-class CompanySerializer(serializers.ModelSerializer):
+class SignupCompanySerializer(serializers.ModelSerializer):
     password_confirm = serializers.CharField(write_only=True)
 
     class Meta:
@@ -63,4 +63,8 @@ class CompanySerializer(serializers.ModelSerializer):
             company.save()
             return company
 
+class CompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User
+        fields=['company_name','email','gender','dob','address','history',]
 
