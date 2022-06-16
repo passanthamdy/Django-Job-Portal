@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "corsheaders",
     #apps
     'accounts',
     'jobs',
@@ -47,7 +46,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'django_extensions',
 ]
 
 REST_FRAMEWORK = {
@@ -73,8 +71,6 @@ CORS_ORIGIN_WHITELIST =(
   'http://192.168.0.107:8080'
 )
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",
-    "django.middleware.common.CommonMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -178,6 +174,3 @@ EMAIL_HOST_PASSWORD = '93f959c1272a25'
 EMAIL_PORT = '2525'
 
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-]
