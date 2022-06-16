@@ -1,6 +1,7 @@
 from django.urls import path
 from rest_framework.authtoken.views import obtain_auth_token
 from .views import company_signup,developer_signup, user_logout
+app_name='accounts'
 
 app_name ='accounts'
 

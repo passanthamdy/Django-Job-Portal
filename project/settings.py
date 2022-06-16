@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "corsheaders",
     #apps
     'accounts',
     'jobs',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'django_extensions',
 ]
 
 REST_FRAMEWORK = {
@@ -176,3 +178,6 @@ EMAIL_HOST_PASSWORD = '93f959c1272a25'
 EMAIL_PORT = '2525'
 
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",
+]
