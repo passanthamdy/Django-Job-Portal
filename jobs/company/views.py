@@ -4,13 +4,14 @@ from django.shortcuts import render
 from requests import request
 from rest_framework import generics
 from rest_framework.views import APIView
-from .serializers import JobSerializer, JobUpdateSerializer,JobCreateSerializer
+from .serializers import JobSerializer, JobUpdateSerializer, JobCreateSerializer
 from jobs.models import Job
 from accounts.models import User
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
 from rest_framework.decorators import api_view
+
 
 # class ListCompanyJobs(generics.ListAPIView):
 #     #self.request.user
@@ -25,7 +26,7 @@ class ListCompanyJobs(APIView):
         """
         Return a list of all jobs related to the requested user.
         """
-        user=User.objects.get(id=5)
+        user = User.objects.get(id=5)
         jobs = Job.objects.filter(job_owner=user)
         serializer = JobSerializer(jobs, many=True)
         return Response(serializer.data)
@@ -42,6 +43,7 @@ class ListCompanyJobs(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+
 
 class RetrieveUpdateDeleteCompanyJob(APIView):
     def get_object(self, pk):
@@ -67,15 +69,14 @@ class RetrieveUpdateDeleteCompanyJob(APIView):
 
     def delete(self, request, pk, format=None):
         job = self.get_object(pk)
-        st=status.HTTP_400_BAD_REQUEST
+        st = status.HTTP_400_BAD_REQUEST
         if job.status == 'OPEN':
             print('got delete')
-            st=status.HTTP_204_NO_CONTENT
+            st = status.HTTP_204_NO_CONTENT
             job.delete()
-            return Response({"details": "your job is deleted"},status=st)
-        
-        return Response({"details": "your job cannot be deleted "},status=st)
+            return Response({"details": "your job is deleted"}, status=st)
 
+<<<<<<< HEAD
 @api_view(['POST'])
 def AcceptDeveloper(request,pk):
     st=status.HTTP_400_BAD_REQUEST
@@ -87,5 +88,19 @@ def AcceptDeveloper(request,pk):
         job.staus='IN_PROGRESS'
         return Response({"details":"Developer has been accepted"},status=status.HTTP_201_CREATED)
     return Response({"details":"Developer can't be accepted"},status=status.HTTP_201_CREATED)
+=======
+        return Response({"details": "your job cannot be deleted "}, status=st)
+>>>>>>> 802b17c882084a2179749a7dc72b301f703115d3
 
 
+@api_view(['POST'])
+def AcceptDeveloper(request, pk):
+    st = status.HTTP_400_BAD_REQUEST
+    job = Job.objects.get(pk=pk)
+    id = request.data['id']
+    user = User.objects.get(id=id)
+    if job.status == 'OPEN' and job.developer is None:
+        job.applied_developers.add(user)
+        job.staus = 'IN_PROGRESS'
+        return Response({"details": "Developer has been accepted"}, status=status.HTTP_201_CREATED)
+    return Response({"details": "Developer can't be accepted"}, status=status.HTTP_201_CREATED)
