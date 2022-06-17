@@ -3,16 +3,8 @@ from ..models import Job
 from accounts.models import User
 from tags.models import Tag
 from accounts.api.v1.serializers import CompanySerializer
+from tags.serializers import TagSerializer
 
-"""
-tag serializer serializer are user for testing purpose only
-"""
-
-
-class TagSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tag
-        fields = ['id', 'name']
 
 
 class JobSerializer(serializers.ModelSerializer):
