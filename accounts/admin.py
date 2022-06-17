@@ -16,7 +16,7 @@ class UserAdmin(admin.ModelAdmin):
                        'dob',
                        'company_name', 'is_active']}),
         ('Upload Section', {'fields': ['cv']}),
-        ('Extra Info', {'fields': ['tags', 'allow_notification', 'history']}),)
+        ('Extra Info', {'fields': ['tags', 'allow_notification', 'history','in_job']}),)
 
     def get_tags(self, obj):
         if obj.tags.all():
