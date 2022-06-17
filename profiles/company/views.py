@@ -4,7 +4,7 @@ from profiles.permissions import UserWritePermission
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from profiles.developer.serializers import  DeveloperViewSerializer, UsersHistorySerializer
+from profiles.developer.serializers import UsersHistorySerializer
 from .serializers import CompanySerializer, NotificationSerializer
 from rest_framework.views import APIView
 from django.http import Http404
@@ -33,7 +33,7 @@ class UpdataProfile(UpdateAPIView):
     permission_classes=[UserWritePermission]
 
 
-# get company by id
+# toggle
 @api_view(["PATCH"])
 def allow_notification(request, company_id):
     response = {'data': {}, 'status': status.HTTP_404_NOT_FOUND}
@@ -51,7 +51,7 @@ def allow_notification(request, company_id):
 
 @api_view(['GET'])
 def get_history(request, id):
-    user=User.objects.get(id=id)
-    users=user.history.all()
-    serializer=UsersHistorySerializer(users, many=True)
+    user = User.objects.get(id=id)
+    users = user.history.all()
+    serializer = UsersHistorySerializer(users, many=True)
     return Response(data=serializer.data)
