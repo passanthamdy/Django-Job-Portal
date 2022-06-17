@@ -14,8 +14,8 @@ class ListCompanyJobs(APIView):
         """
         Return a list of all jobs related to the requested user.
         """
-        user = User.objects.get(id=5)
-        jobs = Job.objects.filter(job_owner=user)
+        
+        jobs = Job.objects.filter(job_owner=request.user)
         serializer = JobSerializer(jobs, many=True)
         return Response(serializer.data)
 

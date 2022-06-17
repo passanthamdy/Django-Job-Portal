@@ -53,6 +53,9 @@ class SignupCompanySerializer(serializers.ModelSerializer):
 
     def save(self, **kwargs):
         company = User(
+            first_name=self.validated_data.get('first_name'),
+            username=self.validated_data.get('username'),
+            email=self.validated_data.get('email'),
             company_name=self.validated_data.get('company_name'),
             user_type='Company',
             is_active=False,
