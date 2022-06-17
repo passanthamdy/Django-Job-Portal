@@ -84,7 +84,9 @@ def AcceptDeveloper(request, pk):
     id = request.data['id']
     user = User.objects.get(id=id)
     if job.status == 'OPEN' and job.developer is None:
-        job.developer=user
+        user.in_job = True
+        user.save()
+        job.developer = user
         job.save()
         return Response({"details": "Developer has been accepted"}, status=status.HTTP_201_CREATED)
     return Response({"details": "Developer can't be accepted"}, status=status.HTTP_201_CREATED)

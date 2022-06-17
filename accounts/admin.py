@@ -7,15 +7,16 @@ from .models import User
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = ['id', 'username', 'user_type', 'gender', 'dob', 'company_name', 'cv', 'address', 'get_tags',
-                    'is_active','allow_notification']
+                    'is_active', 'allow_notification']
 
     search_fields = ('username', 'user_type', 'gender',)
     fieldsets = (
         ('Personal Info', {
-            'fields': ['username', 'email', 'first_name', 'last_name', 'password', 'user_type', 'gender', 'address', 'dob',
+            'fields': ['username', 'email', 'first_name', 'last_name', 'password', 'user_type', 'gender', 'address',
+                       'dob',
                        'company_name', 'is_active']}),
         ('Upload Section', {'fields': ['cv']}),
-        ('Extra Info', {'fields': ['tags', 'allow_notification','history' ]}),)
+        ('Extra Info', {'fields': ['tags', 'allow_notification', 'history']}),)
 
     def get_tags(self, obj):
         if obj.tags.all():

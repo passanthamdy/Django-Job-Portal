@@ -4,10 +4,15 @@ from tags.serializers import TagSerializer
 
 
 class DeveloperViewSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = User
         fields = ['username', 'first_name', 'email', 'tags', 'cv', 'gender']
+
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('allow_notification')
 
 
 class UsersHistorySerializer(serializers.ModelSerializer):
