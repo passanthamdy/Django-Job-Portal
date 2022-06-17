@@ -43,7 +43,7 @@ class SignupCompanySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('company_name', 'address', 'email', 'password', 'password_confirm')
+        fields = ('username','email','first_name','company_name', 'address', 'email', 'password', 'password_confirm','user_type')
         extra_kwargs = {
             'company_name': {'required': True},
             'address': {'required': True},
@@ -59,8 +59,9 @@ class SignupCompanySerializer(serializers.ModelSerializer):
             company_name=self.validated_data.get('company_name'),
             user_type='Company',
             is_active=False,
-             allow_notification=True
+            allow_notification=True
         )
+        print('username: ',company.username)
         if self.validated_data.get('password') != self.validated_data.get('password_confirm'):
             raise serializers.ValidationError(
                 {'detail': "passwords didn't match"}
