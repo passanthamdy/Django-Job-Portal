@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
@@ -9,6 +10,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from profiles.permissions import UserWritePermission
 from rest_framework.generics import UpdateAPIView
+from .serializers import NotificationSerializer
+
 
 # from .permissions import MyPermission
 
@@ -25,12 +28,28 @@ def profile_view(request, developer_id):
 
     return Response(**response)
 
-
-
+"""generics"""
 class UpdataProfile(UpdateAPIView):
-
     queryset=User.objects.all()
     serializer_class=DeveloperViewSerializer
     permission_classes=[UserWritePermission]
+    
+
+
+#allow notification
+@api_view(["PATCH"])
+def allow_notification(request, developer_id):
+    response = {'data': {}, 'status': status.HTTP_404_NOT_FOUND}
+
+    try:
+        developer = User.objects.get(pk=developer_id)
+        serializer = NotificationSerializer(developer, many=False)
+        response['data'] = serializer.data
+        response['status'] = status.HTTP_200_OK
+    except ObjectDoesNotExist:
+        response['data'] = {'object does not exit'}
+        response['status'] = status.HTTP_204_NO_CONTENT
+    finally:
+        return Response(**response)
 
 

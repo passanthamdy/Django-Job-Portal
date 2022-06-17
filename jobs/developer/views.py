@@ -20,20 +20,23 @@ def job_details(request, job_id):
     serializer = DeveloperJobsSerializer(job_detail)
     return Response(data=serializer.data, status=status.HTTP_200_OK)
 
+
 @api_view(['POST'])
 def apply_for_job(request, job_id):
-    user=User.objects.get(id=request.user.id)
+    user = request.user
     job = Job.objects.get(pk=job_id)
-
-    if job.status=='OPEN' :
+    print( job.status)
+    if job.status == 'OPEN' and user.in_job == False:
+        print('valid')
         job.applied_developers.add(user)
         job.save()
-        return Response({"details":f"{user.username}Developer Applied succesfully"},status=status.HTTP_201_CREATED)
-    return Response({"details":"Developer can't be accepted"},status=status.HTTP_201_CREATED)
+        return Response({"details": f"{user.username}Developer Applied succesfully"}, status=status.HTTP_201_CREATED)
+    return Response({"details": "You can't apply for this job"}, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 @api_view(['POST'])
 def mark_finish(request,job_id):
-    #=User.objects.get(id=request.user.id)
     job = Job.objects.get(pk=job_id)
     if job.developer == request.user:
         job.status = 'FINISHD'

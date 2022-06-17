@@ -88,9 +88,13 @@ def AcceptDeveloper(request, pk):
     job = Job.objects.get(pk=pk)
     id = request.data['id']
     user = User.objects.get(id=id)
-    if job.status == 'OPEN' and job.developer is None and request.user==job.job_owner:
-        job.developer=user
-        job.save()
+    if job.status == 'OPEN' and job.developer is None:
+        if user in job.applied_developers.all():
+            user.in_job = True
+            job.developer = user
+            job.save()
+            user.save()
+        else:
+            return  Response({"details": "this developer didn't apply for your job"}, status=status.HTTP_403_FORBIDDEN)
         return Response({"details": "Developer has been accepted"}, status=status.HTTP_201_CREATED)
-    
-    return Response({"details": "Developer can't be accepted"}, status=status.HTTP_201_CREATED)
+    return Response({"details": "Developer can't be accepted"}, status=status.HTTP_400_BAD_REQUEST)
