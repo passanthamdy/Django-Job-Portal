@@ -3,8 +3,8 @@ from .views import profile_view, UpdataProfile, allow_notification
 
 app_name = 'developer_profile'
 urlpatterns = [
-    path('update/<int:pk>', UpdataProfile.as_view(), name='ho-drf'),
-    path('view/<int:developer_id>', profile_view, name='list'),
-    path('home/<int:developer_id>/allowNotification', allow_notification),
+    path('<int:developer_id>/details/', profile_view, name='list'),
+    path('<int:pk>/update/', UpdataProfile.as_view(), name='ho-drf'),
+    path('<int:developer_id>/allow_notification/', allow_notification),
 
 ]

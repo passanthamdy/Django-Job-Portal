@@ -4,11 +4,7 @@ from profiles.permissions import UserWritePermission
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-<<<<<<< HEAD
 from profiles.developer.serializers import UsersHistorySerializer
-=======
-from profiles.developer.serializers import  DeveloperViewSerializer, UsersHistorySerializer
->>>>>>> a7756bf4523661732416f6c572389ca9b7b823e6
 from .serializers import CompanySerializer, NotificationSerializer
 from rest_framework.views import APIView
 from django.http import Http404
