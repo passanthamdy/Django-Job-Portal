@@ -9,8 +9,9 @@ class SignupDeveloperSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', 'password_confirm', 'cv')
+        fields = ('username', 'first_name','email', 'password', 'password_confirm', 'cv')
         extra_kwargs = {
+            'first_name':{'required':True},
             'username': {'required': True},
             'email': {'required': True},
             'password': {'write_only': True, 'required': True},
@@ -19,11 +20,13 @@ class SignupDeveloperSerializer(serializers.ModelSerializer):
 
     def save(self, **kwargs):
         developer = User(
+            first_name=self.validated_data.get('first_name'),
             username=self.validated_data.get('username'),
             email=self.validated_data.get('email'),
             cv=self.validated_data.get('cv'),
             user_type='DEVELOPER',
-            # is_active=False
+            is_active=False,
+            allow_notification=True
         )
         if self.validated_data.get('password') != self.validated_data.get('password_confirm'):
             raise serializers.ValidationError(
@@ -52,7 +55,8 @@ class SignupCompanySerializer(serializers.ModelSerializer):
         company = User(
             company_name=self.validated_data.get('company_name'),
             user_type='Company',
-            # is_active=False
+            is_active=False,
+             allow_notification=True
         )
         if self.validated_data.get('password') != self.validated_data.get('password_confirm'):
             raise serializers.ValidationError(
@@ -68,3 +72,7 @@ class CompanySerializer(serializers.ModelSerializer):
         model=User
         fields=['company_name','email','gender','dob','address','history',]
 
+class DeveloperSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User
+        fields=['username','first_name','email','gender','dob','cv','tags',]

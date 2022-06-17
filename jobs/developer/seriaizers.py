@@ -2,33 +2,26 @@ from rest_framework import serializers
 from jobs.models import Job
 from accounts.models import User
 from tags.models import Tag
-
-
-class JobOwnerSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = ['id', 'username', 'address']
-        model = User
+from accounts.api.v1.serializers import CompanySerializer, DeveloperSerializer
 
 
 class TagsSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ['name']
+        fields = ['id','name']
         model = Tag
 
-
 class DeveloperJobsSerializer(serializers.ModelSerializer):
-
-    job_owner = JobOwnerSerializer()
+    job_owner = CompanySerializer()
+    applied_developers = DeveloperSerializer(many=True)
+    developer = DeveloperSerializer(many=False)
     Tags = TagsSerializer(many=True)
 
     class Meta:
-        fields = "__all__"
         model = Job
-        depth = 1
+        fields = ['id', 'name', 'job_owner', 'Tags', 'applied_developers',
+                  'developer', 'description', 'status', 'creation_time', 'modification_time', ]
+        #optional_fields = ['applied_developers', 'developer', 'status']
 
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = "__all__"
-        model = User
+
 

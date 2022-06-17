@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from tags.models import Tag
 from datetime import datetime
 from django.utils.timezone import now
+from django.core.validators import FileExtensionValidator
 
 # # Create your models here.
 GENDER = (
@@ -21,7 +22,7 @@ class User(AbstractUser):
     gender = models.CharField(choices=GENDER, max_length=50, default='FEMALE')
     dob = models.DateField(default=now)
     # Developer fields
-    cv = models.FileField(upload_to='user_cvs/', null=True, blank=True)
+    cv = models.FileField(upload_to='user_cvs/', null=True, blank=True,validators=[FileExtensionValidator(allowed_extensions=["pdf"])])
     tags = models.ManyToManyField(Tag, null=True, blank=True)
     # Company Fields
     company_name = models.CharField(max_length=50, null=True, blank=True)

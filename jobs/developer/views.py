@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 
 from accounts.models import User
 from jobs.models import Job
-from .seriaizers import DeveloperJobsSerializer, UserSerializer
+from .seriaizers import DeveloperJobsSerializer
 
 
 @api_view(["GET"])
@@ -30,5 +30,15 @@ def apply_for_job(request, job_id):
         job.save()
         return Response({"details":f"{user.username}Developer Applied succesfully"},status=status.HTTP_201_CREATED)
     return Response({"details":"Developer can't be accepted"},status=status.HTTP_201_CREATED)
+
+@api_view(['POST'])
+def mark_finish(request,job_id):
+    #=User.objects.get(id=request.user.id)
+    job = Job.objects.get(pk=job_id)
+    if job.developer == request.user:
+        job.status = 'FINISHD'
+        job.save()
+        return Response({"details":f"Your job is Finished"},status=status.HTTP_201_CREATED)
+
 
 

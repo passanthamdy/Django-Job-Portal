@@ -26,7 +26,7 @@ class JobSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'job_owner', 'Tags', 'applied_developers',
                   'developer', 'description', 'status', 'creation_time', 'modification_time', ]
         optional_fields = ['applied_developers', 'developer', 'status']
-
+        depth=2
 
 class JobCreateSerializer(serializers.ModelSerializer):
     user = User.objects.get(id=5)
