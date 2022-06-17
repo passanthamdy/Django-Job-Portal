@@ -6,7 +6,6 @@ from accounts.api.v1.serializers import CompanySerializer
 from tags.serializers import TagSerializer
 
 
-
 class JobSerializer(serializers.ModelSerializer):
     job_owner = CompanySerializer(many=False, read_only=True)
     applied_developers = CompanySerializer(many=True)
@@ -18,12 +17,12 @@ class JobSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'job_owner', 'Tags', 'applied_developers',
                   'developer', 'description', 'status', 'creation_time', 'modification_time', ]
         optional_fields = ['applied_developers', 'developer', 'status']
-        depth=2
+        depth = 2
+
 
 class JobCreateSerializer(serializers.ModelSerializer):
-    user = User.objects.get(id=5)
     job_owner = serializers.HiddenField(
-        default=user,
+        default=serializers.CurrentUserDefault(),
     )
 
     class Meta:
