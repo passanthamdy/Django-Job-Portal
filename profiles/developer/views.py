@@ -28,7 +28,6 @@ def profile_view(request, developer_id):
 
 
 class UpdataProfile(UpdateAPIView):
-
     queryset=User.objects.all()
     serializer_class=DeveloperViewSerializer
     permission_classes=[UserWritePermission]
