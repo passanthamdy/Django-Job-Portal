@@ -30,6 +30,7 @@ def profile_view(request, developer_id):
 
 
 class UpdataProfile(UpdateAPIView):
+<<<<<<< HEAD
     queryset = User.objects.all()
     serializer_class = DeveloperViewSerializer
     permission_classes = [UserWritePermission]
@@ -49,3 +50,11 @@ def allow_notification(request, developer_id):
         response['status'] = status.HTTP_204_NO_CONTENT
     finally:
         return Response(**response)
+=======
+
+    queryset=User.objects.all()
+    serializer_class=DeveloperViewSerializer
+    permission_classes=[UserWritePermission]
+
+
+>>>>>>> a7756bf4523661732416f6c572389ca9b7b823e6

@@ -1,0 +1,8 @@
+from dataclasses import fields
+from rest_framework import serializers
+from .models import Notification
+
+class NotificationSerializer(serializers.ModelSeriaizer):
+    class Meta:
+        model=Notification
+        fields=['message','created_at']
