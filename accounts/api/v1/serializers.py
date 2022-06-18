@@ -43,7 +43,7 @@ class SignupCompanySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username','email','first_name','company_name', 'address', 'email', 'password', 'password_confirm','user_type')
+        fields = ('username','email','company_name', 'address', 'email', 'password', 'password_confirm','user_type')
         extra_kwargs = {
             'company_name': {'required': True},
             'address': {'required': True},
@@ -53,8 +53,8 @@ class SignupCompanySerializer(serializers.ModelSerializer):
 
     def save(self, **kwargs):
         company = User(
-            first_name=self.validated_data.get('first_name'),
             username=self.validated_data.get('username'),
+            address=self.validated_data.get('address'),
             email=self.validated_data.get('email'),
             company_name=self.validated_data.get('company_name'),
             user_type='Company',
