@@ -16,7 +16,7 @@ class Job(models.Model):
     Tags = models.ManyToManyField("tags.Tag", verbose_name="Job's tags")
     applied_developers = models.ManyToManyField("accounts.User",related_name='developers', verbose_name="Applied Developer",null=True, blank=True)
     developer = models.ForeignKey("accounts.User", verbose_name="Accepted Developer",blank=True,null=True, on_delete=models.SET_NULL)
-    status=models.CharField(choices=STATUS, max_length=50)
+    status=models.CharField(choices=STATUS, default="OPEN" ,max_length=50)
     creation_time=models.DateTimeField( auto_now=False, auto_now_add=True)
     modification_time = models.DateTimeField(auto_now=True, auto_now_add=False)
     

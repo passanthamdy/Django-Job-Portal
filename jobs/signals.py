@@ -54,20 +54,21 @@ def send_mails_to_accepted_users(sender, instance, **kwargs):
     if instance.id is not None:
         users_emails = []
         accepted_user = instance.developer
-        for user in users_emails:
-                users_emails.append(user.email)
-                users_emails = list(set(users_emails))
-        send_mail("Job Portal",
-                      f"GG man you are accepted",
-                      "job_portal@gmail.com",
-                      [accepted_user.email])
-        Notification.objects.create(
-                username=accepted_user, message="GG man you are accepted"
-            )
-        send_mail("Job Portal",
-                      f"Sorry guys you not accepted, try again later",
-                      "job_portal@gmail.com",
-                      users_emails)  
+        if accepted_user:
+            for user in users_emails:
+                    users_emails.append(user.email)
+                    users_emails = list(set(users_emails))
+            send_mail("Job Portal",
+                        f"GG man you are accepted",
+                        "job_portal@gmail.com",
+                        [accepted_user.email])
+            Notification.objects.create(
+                    username=accepted_user, message="GG man you are accepted"
+                )
+            send_mail("Job Portal",
+                        f"Sorry guys you not accepted, try again later",
+                        "job_portal@gmail.com",
+                        users_emails)  
            
 
 @receiver(m2m_changed, sender=Job.applied_developers.through)

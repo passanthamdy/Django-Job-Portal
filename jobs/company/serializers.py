@@ -24,12 +24,12 @@ class JobCreateSerializer(serializers.ModelSerializer):
     job_owner = serializers.HiddenField(
         default=serializers.CurrentUserDefault(),
     )
-
     class Meta:
         model = Job
         fields = ['id', 'name', 'Tags', 'applied_developers',
                   'developer', 'description', 'creation_time', 'modification_time', 'job_owner']
         optional_fields = ['applied_developers', 'developer', ]
+    
 
 
 class JobUpdateSerializer(serializers.ModelSerializer):

@@ -57,7 +57,7 @@ class SignupCompanySerializer(serializers.ModelSerializer):
             address=self.validated_data.get('address'),
             email=self.validated_data.get('email'),
             company_name=self.validated_data.get('company_name'),
-            user_type='Company',
+            user_type='COMPANY',
             is_active=False,
             allow_notification=True
         )

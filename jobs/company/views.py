@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
 from rest_framework.decorators import api_view
+from rest_framework import generics
 
 
 class ListCompanyJobs(APIView):
@@ -19,19 +20,10 @@ class ListCompanyJobs(APIView):
         serializer = JobSerializer(jobs, many=True)
         return Response(serializer.data)
 
-    def post(self, request, format=None):
-        """
-        Create new job with 
-        """
 
-        serializer = JobCreateSerializer(data=request.data)
-        print(request.data)
-        if serializer.is_valid(raise_exception=True):
-            print("is valid")
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
-
+class CreateJob(generics.CreateAPIView):
+    queryset=Job.objects.all()
+    serializer_class=JobCreateSerializer
 
 class RetrieveUpdateDeleteCompanyJob(APIView):
     """
@@ -92,6 +84,7 @@ def AcceptDeveloper(request, pk):
         if user in job.applied_developers.all():
             user.in_job = True
             job.developer = user
+            job.status="IN_PROGRESS"
             job.save()
             user.save()
         else:

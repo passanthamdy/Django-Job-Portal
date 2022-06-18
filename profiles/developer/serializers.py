@@ -6,7 +6,7 @@ from tags.serializers import TagSerializer
 class DeveloperViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'email', 'tags', 'cv', 'gender']
+        fields = ['id','username', 'first_name', 'email', 'tags', 'cv', 'gender','allow_notification']
 
 
 class NotificationSerializer(serializers.ModelSerializer):
