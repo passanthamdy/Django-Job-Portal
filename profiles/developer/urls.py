@@ -5,6 +5,6 @@ app_name = 'developer_profile'
 urlpatterns = [
     path('dev/<int:developer_id>/details/', profile_view, name='list'),
     path('dev/<int:pk>/update/', UpdataProfile.as_view(), name='ho-drf'),
-    path('dev/<int:developer_id>/allow_notification/', allow_notification),
+    path('dev/allow_notification/', allow_notification),
 
 ]

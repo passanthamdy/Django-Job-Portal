@@ -67,8 +67,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 # ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 CORS_ORIGIN_WHITELIST =(
-   'http://localhost:8081',
-  'http://192.168.0.107:8081'
+   'http://localhost:8080',
+  'http://192.168.0.107:8080'
 )
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

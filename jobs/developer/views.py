@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.http import Http404
 
 from accounts.models import User
 from jobs.models import Job
@@ -47,4 +48,13 @@ def mark_finish(request,job_id):
         return Response({"details":f"Your job is Finished"},status=status.HTTP_201_CREATED)
 
 
+@api_view(["GET"])
+def current_job(request):
+        try:
+            job_detail= Job.objects.get(developer=request.user)
+            print("here prinnnt",request.user)
+        except Job.DoesNotExist:
+            raise Http404('No Current Job')
+        serializer = DeveloperJobsSerializer(job_detail)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 

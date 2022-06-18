@@ -1,6 +1,10 @@
+import imp
 from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import Notification
+from .serializers import NotificationSerializer
+from rest_framework.response import Response
+
 
 class ListNotifications(APIView):
    
@@ -10,6 +14,6 @@ class ListNotifications(APIView):
         """
         
         jobs = Notification.objects.filter(user=request.user)
-        serializer = JobSerializer(jobs, many=True)
+        serializer = NotificationSerializer(jobs, many=True)
         return Response(serializer.data)
 

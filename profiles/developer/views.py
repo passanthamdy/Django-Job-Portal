@@ -37,19 +37,15 @@ class UpdataProfile(UpdateAPIView):
 
 
 #allow notification
-@api_view(["PATCH"])
-def allow_notification(request, developer_id):
-    response = {'data': {}, 'status': status.HTTP_404_NOT_FOUND}
-
-    try:
-        developer = User.objects.get(pk=developer_id)
-        serializer = NotificationSerializer(developer, many=False)
-        response['data'] = serializer.data
-        response['status'] = status.HTTP_200_OK
-    except ObjectDoesNotExist:
-        response['data'] = {'object does not exit'}
-        response['status'] = status.HTTP_204_NO_CONTENT
-    finally:
-        return Response(**response)
+@api_view(["POST"])
+def allow_notification(request):
+    developer = User.objects.get(pk=request.user.id)
+    if developer.allow_notification:
+        developer.allow_notification =False
+        developer.save()
+    else:
+        developer.allow_notification =True
+        developer.save()
+    return Response({'data': "toggeled"},status=status.HTTP_200_OK)
 
 
