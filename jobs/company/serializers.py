@@ -2,7 +2,7 @@ from rest_framework import serializers
 from ..models import Job
 from accounts.models import User
 from tags.models import Tag
-from accounts.api.v1.serializers import CompanySerializer
+from accounts.api.v1.serializers import CompanySerializer,DeveloperSerializer
 from tags.serializers import TagSerializer
 
 
@@ -10,7 +10,7 @@ from tags.serializers import TagSerializer
 class JobSerializer(serializers.ModelSerializer):
     job_owner = CompanySerializer(many=False, read_only=True)
     applied_developers = CompanySerializer(many=True)
-    developer = CompanySerializer(many=False)
+    developer = DeveloperSerializer(many=False)
     Tags = TagSerializer(many=True)
 
     class Meta:
@@ -21,9 +21,8 @@ class JobSerializer(serializers.ModelSerializer):
         depth=2
 
 class JobCreateSerializer(serializers.ModelSerializer):
-    user = User.objects.get(id=5)
     job_owner = serializers.HiddenField(
-        default=user,
+        default=serializers.CurrentUserDefault(),
     )
 
     class Meta:

@@ -40,6 +40,9 @@ def mark_finish(request,job_id):
     job = Job.objects.get(pk=job_id)
     if job.developer == request.user:
         job.status = 'FINISHD'
+        user=User.objects.get(id=request.user.id)
+        user.in_job= False 
+        user.save()
         job.save()
         return Response({"details":f"Your job is Finished"},status=status.HTTP_201_CREATED)
 

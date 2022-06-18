@@ -74,7 +74,7 @@ class SignupCompanySerializer(serializers.ModelSerializer):
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model=User
-        fields=['company_name','email','gender','dob','address','history',]
+        fields=['id','company_name','email','gender','dob','address','history',]
 
 class DeveloperSerializer(serializers.ModelSerializer):
     class Meta:

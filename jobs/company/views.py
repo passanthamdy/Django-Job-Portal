@@ -98,3 +98,16 @@ def AcceptDeveloper(request, pk):
             return  Response({"details": "this developer didn't apply for your job"}, status=status.HTTP_403_FORBIDDEN)
         return Response({"details": "Developer has been accepted"}, status=status.HTTP_201_CREATED)
     return Response({"details": "Developer can't be accepted"}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def mark_finish(request,pk):
+    job = Job.objects.get(id=pk)
+    id=job.developer.id
+    user=User.objects.get(id=id)
+    if job.job_owner == request.user:
+        job.status = 'FINISHD'
+        user.in_job=False
+        user.save()
+        job.save()
+        return Response({"details":f"Your job is Finished"},status=status.HTTP_201_CREATED)
+
